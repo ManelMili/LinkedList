@@ -1,0 +1,120 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct node
+{
+    int number;
+    struct node *next;
+}
+node;
+
+int main(int argc, char *argv[])
+{
+    node *list = NULL;
+
+     // list
+     //  |
+     //  v
+     // NULL
+
+    //i = 1 cause argc[0] name of program
+    for (int i = 1; i < argc; i++)
+
+    //si argc = 4
+    //argv[0] = "./programme"
+    //argv[1] = "1"
+    //argv[2] = "2"
+    //argv[3] = "3"
+    //argv[4] =NULL
+
+    {
+        int number = atoi(argv[i]);   //'3' est un caractère dont le code ASCII vaut 51.
+                                      //atoi("3") interprète le caractère comme un chiffre et retourne la valeur numérique 3.
+        node *n = malloc(sizeof(node));
+        if (n == NULL)
+        {
+            return 1;
+        }
+        n -> number = number;
+        n -> next = NULL;
+        n -> next = list;
+        list = n;
+    }
+
+i = 1 (argv[1] = "1")
+
+list
+ |
+ v
++--------+------+
+|   1    | NULL |
++--------+------+
+
+i = 2 (argv[2] = "2")
+
+list
+ |
+ v
++--------+------+
+|   2    |   o--+---->
++--------+------+     +--------+------+
+                     |   1    | NULL |
+                     +--------+------+
+
+
+i = 3 (argv[3] = "3")
+
+
+list
+ |
+ v
++--------+------+
+|   3    |   o--+---->
++--------+------+     +--------+------+
+                     |   2    |   o--+---->
+                     +--------+------+     +--------+------+
+                                          |   1    | NULL |
+                                          +--------+------+
+
+
+    // for (node *ptr = list; ptr !=NULL; ptr = ptr->next) similar to lines 29+30
+    node *ptr = list;
+    while (ptr != NULL)
+    {
+        printf ("%i\n", ptr->number);
+        ptr = ptr->next;
+
+    }
+
+ptr
+ |
+ v
+[3] ---> [2] ---> [1] ---> NULL
+
+
+          ptr
+           |
+           v
+[3] ---> [2] ---> [1] ---> NULL
+
+
+                   ptr
+                    |
+                    v
+[3] ---> [2] ---> [1] ---> NULL
+
+
+3
+2
+1
+
+    ptr = list;
+    while (ptr != NULL)
+    {
+        node *next = ptr->next;
+        free(ptr);
+        ptr = next;
+
+    }
+}
+
